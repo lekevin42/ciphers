@@ -22,7 +22,7 @@ class Hill(CipherInterface):
 		
 		plain_matrix = self.convert_list_to_matrix(plain_matrix)
 	
-		
+
 		for section in plain_matrix:
 			cipher_matrix = np.matmul(self.key, section) % 26
 			cipher_text = self.convert_matrix_to_letters(cipher_text, cipher_matrix)
@@ -36,11 +36,28 @@ class Hill(CipherInterface):
 		
 		self.key = self.convert_list_to_matrix(self.key)
 		
+		cipher_matrix = self.convert_letters_to_list(cipher_text)
+		
+		cipher_matrix = self.convert_list_to_matrix(cipher_matrix)
+		
 		print(self.key)
-		inverted_matrix = np.linalg.inv(self.key)
-		
-		
+		#print(self.key)
+		inverted_matrix = (np.linalg.inv(self.key) % 26)  
 		print(inverted_matrix)
+		
+		#inverted_matrix = inverted_matrix.astype(int)
+		#print(cipher_matrix)
+		#print(inverted_matrix)
+		#print(np.matmul(cipher_matrix, inverted_matrix))
+		#print(inverted_matrix)
+		for section in cipher_matrix:
+			#print(section)
+			plain_matrix = np.matmul(inverted_matrix, section) % 26
+			#print(plain_matrix)
+			plain_text = self.convert_matrix_to_letters(plain_text, plain_matrix)
+			
+		print(plain_text)
+		
 			
 		return plain_text
 	
@@ -75,7 +92,7 @@ class Hill(CipherInterface):
 		for key in array:
 			for single in range(len(key)):
 				key[single] = self.alphabet.index(key[single])
-				
+		
 		return np.array(array)
 		
 	
@@ -91,16 +108,23 @@ class Hill(CipherInterface):
 		
 def main():
 	a = "gybnqkurp"
+	#for char in a:
+	#	print(ord(char) - ord('a'))
+	
 	h = Hill(math.sqrt(len(a)))
-	word = "act"
+	word = "catcoozoo"
 
 	h.setKey(a)
 	e = h.encrypt(word)
-	print(e)
+	#print(e)
 	
-	h.setKey(a)
-	g = h.decrypt(e)
+	q = Hill(math.sqrt(len(a)))
+	q.setKey(a)
+	g = q.decrypt(e)
 	
+	#n = np.array([[2,3], [5,7]])
+
+	#print(np.linalg.inv(n) % 26)
 	
 if __name__ == "__main__":
 	main()
