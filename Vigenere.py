@@ -54,22 +54,3 @@ class Vigenere(CipherInterface):
 		
 		
 		return alphabet_list
-		
-def main():
-	plain_text = "same"
-	key = "bar"
-	v = Vigenere()
-	v.setKey(key)
-	cipher_text = v.encrypt(plain_text)
-	print(cipher_text)
-	print(v.decrypt(cipher_text))
-	
-	
-	
-	
-	
-	
-
-if __name__ == "__main__":
-	main()
-	

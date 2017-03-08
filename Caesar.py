@@ -37,20 +37,3 @@ class Caesar(CipherInterface):
 				plain_text += chr(decrypt_letter)
 					
 		return plain_text
-		
-		
-		
-def main():
-	c = Caesar()
-	c.setKey(3)
-	
-	letters = "abcdefghwxyz"
-	cipher_text = c.encrypt(letters)
-	print(cipher_text)
-	plain_text = c.decrypt(cipher_text)
-	print(plain_text)
-	
-
-if __name__ == "__main__":
-	main()
-	
