@@ -5,6 +5,8 @@
 import sys
 from Caesar import *
 from Vigenere import *
+from Railfence import *
+from RowTransposition import *
 
 #read the contents of a file
 def read_file(input_file):
@@ -33,22 +35,36 @@ def choose_cipher(cipher_name, key, option, input_file, output_file):
 	
 	#Row Transposition
 	elif cipher_name == "RTS":
+		rowtransposition = RowTransposition()
+		rowtransposition.setKey(key)
+	
 		if option == "ENC":
-			pass
+			plain_text = read_file(input_file)
+			cipher_text = rowtransposition.encrypt(plain_text)
+			write_file(output_file, cipher_text)
 		
 		elif option == "DEC":
-			pass
+			cipher_text = read_file(input_file)
+			plain_text = rowtransposition.decrypt(cipher_text)
+			write_file(output_file, plain_text)
 		
 		else:
 			print("Invalid option! Options are ENC/DEC")
 	
 	#Railfence
 	elif cipher_name == "RFC":
+		railfence = Railfence()
+		railfence.setKey(key)
+	
 		if option == "ENC":
-			pass
+			plain_text = read_file(input_file)
+			cipher_text = railfence.encrypt(plain_text)
+			write_file(output_file, cipher_text)
 		
 		elif option == "DEC":
-			pass
+			cipher_text = read_file(input_file)
+			plain_text = railfence.decrypt(cipher_text)
+			write_file(output_file, plain_text)
 		
 		else:
 			print("Invalid option! Options are ENC/DEC")
